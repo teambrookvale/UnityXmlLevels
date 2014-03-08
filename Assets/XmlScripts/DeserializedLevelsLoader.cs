@@ -50,18 +50,6 @@ public class DeserializedLevelsLoader
 
 		DeserializedLevels.Level currentLevel = deserializedLevels.levels[startLevel-1];
 
-		// <Level playerx="1" playery="1">
-		// set player position and rotation if not in editor mode
-		if (Cache.player != null)
-		{
-			setPos2D (Cache.player, new Vector2(
-				toFloatZeroIfNull(currentLevel.playerx),
-				toFloatZeroIfNull(currentLevel.playery)
-			));
-
-			setRot2D (Cache.playerSprite,toFloatZeroIfNull(currentLevel.playerrot));
-		}
-
 		// <Item prefab="Chair" x="1" y="10" rot="90" />
 		foreach (DeserializedLevels.Item deserializedItem in currentLevel.items)
 		{

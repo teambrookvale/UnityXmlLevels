@@ -1,13 +1,3 @@
-UnityXmlLevels
-==============
-
-Load and save levels in Unity using XML files, that you can also edit manually easily.
-
-XZ pane as using NavMesh
-
-Example XML
-
-```
 <?xml version="1.0" encoding="us-ascii"?>
 
 <Levels>
@@ -29,8 +19,3 @@ Example XML
   </Level>
 
 </Levels>
-```
-
-1. Open MainScene: Project pane -> Assets -> _LOAD_THIS_SCENE_ -> MainScene 
-2. Open and place somewhere the Xml Level Editor: Click Window -> Xml Level Editor
-
