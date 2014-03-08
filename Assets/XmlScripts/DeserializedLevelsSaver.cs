@@ -47,8 +47,8 @@ public class DeserializedLevelsSaver
 
 			levelXml.items[i].prefab = 	item.name;
 			levelXml.items[i].x = 		toStringNullIfZero (item.transform.position.x);
-			levelXml.items[i].y = 		toStringNullIfZero (item.transform.position.z);
-			levelXml.items[i].rot = 	toStringNullIfZero (item.localRotation.eulerAngles.y);
+			levelXml.items[i].y = 		toStringNullIfZero (item.transform.position.y);
+			levelXml.items[i].rot = 	toStringNullIfZero (item.localRotation.eulerAngles.x);
 			levelXml.items[i].scale_x = toStringNullIfOne  (item.localScale.x);
 			levelXml.items[i].scale_y = toStringNullIfOne  (item.localScale.y);
 

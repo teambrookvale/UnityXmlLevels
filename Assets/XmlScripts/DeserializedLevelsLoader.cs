@@ -115,15 +115,15 @@ public class DeserializedLevelsLoader
 	{
 		g.transform.position = new Vector3 (
 			pos.x,
-			g.transform.position.y,
-			pos.y
+			pos.y,
+			g.transform.position.z
 		);
 	}
 
 	void setRot2D(GameObject g, float rot)
 	{
 		Quaternion rotation = Quaternion.identity;
-		rotation.eulerAngles = new Vector3(90, rot, 0);
+		rotation.eulerAngles = new Vector3(0, 0, rot);
 		g.transform.localRotation = rotation;
 	}
 
