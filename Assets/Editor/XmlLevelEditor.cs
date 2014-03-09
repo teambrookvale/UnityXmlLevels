@@ -49,7 +49,7 @@ public class XmlLevelEditor : EditorWindow {
 
 		// Cross check section
 		GUILayout.Label ("Cross Check", EditorStyles.boldLabel);
-		GUILayout.Label ("Cross check /Resources/Prefabs and Levels.xml if there are any item prefabs that exist only in one but not the other");
+		GUILayout.Label ("Cross check /Resources/Prefabs and Levels.xml if there are any item prefabs that exist only in one but not the other", EditorStyles.wordWrappedLabel);
 		if (GUILayout.Button("Cross Check"))
 			deserializedLevelsCrossChecker.crossCheck();
 	}
