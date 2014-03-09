@@ -24,7 +24,7 @@ public class XmlLevelEditor : EditorWindow {
 
 		if (GUILayout.Button("Import Levels.xml"))
 		{
-			deserializedLevelsLoader.generateMap();
+			deserializedLevelsLoader.generateItems();
 
 			//DeserializedLevels levelsXml = XmlIO.LoadLevels();
 

@@ -29,15 +29,5 @@ public class XmlIO
 		}
 	}
 
-
 	private static void initSerializer () {	if (ser == null) ser = new XmlSerializer(typeof(DeserializedLevels)); }
-
-	/*
-	static string getPath (string fileName)
-	{
-		string path;
-		path = Path.Combine(Application.dataPath, "Resources");
-		path = Path.Combine(path, fileName);
-		return Path.GetFullPath(path);
-	}*/
 }

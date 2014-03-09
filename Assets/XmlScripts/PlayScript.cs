@@ -6,7 +6,7 @@ public class PlayScript : MonoBehaviour {
 	void Start ()
 	{
 		DeserializedLevelsLoader d = new DeserializedLevelsLoader();
-		d.generateMap();
+		d.generateItems();
 	}
 
 }

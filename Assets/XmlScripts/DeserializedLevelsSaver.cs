@@ -20,10 +20,6 @@ public class DeserializedLevelsSaver
 		if (xmlItemsToExportGOchildren.Length == 0)
 			Debug.LogError ("Add the prefabs to " + xmlItemsToExportGOName);
 		
-		XmlWriterSettings settings = new XmlWriterSettings();
-		settings.Indent = true;
-		settings.IndentChars = ("    ");
-		
 		DeserializedLevels.Level levelXml = new DeserializedLevels.Level();
 
 		int n = 0;

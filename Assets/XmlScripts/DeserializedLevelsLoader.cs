@@ -31,7 +31,7 @@ public class DeserializedLevelsLoader
 	
 	public const string xmlItemsGOName = "XmlItems";
 
-	public void generateMap ()
+	public void generateItems ()
 	{
 		prefabPool = new Dictionary<string, GameObject>();
 		sceneItemsList = new List<ItemStruct>();
