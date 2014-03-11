@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
@@ -42,7 +42,7 @@ public class DeserializedLevelsLoader
 		
 		parentOfXmlItems = new GameObject(xmlItemsGOName).transform;
 
-		deserializedLevels = XmlIO.LoadLevels();
+		deserializedLevels = XmlIO.LoadXml<DeserializedLevels>("Levels");
 
 		// if startlevel is in the XML i.e. <Developer StartLevel="3" /> then get level from there
 		// otherwise start with level 1

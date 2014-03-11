@@ -3,31 +3,27 @@ using System.Xml.Serialization;
 using System.IO;
 using UnityEngine; // necessary for TextAsset
 
-public class XmlIO
+public static class XmlIO
 {
-	static XmlSerializer ser;
-
-	public static void Save(string path, DeserializedLevels levelsXml)
+	public static void SaveXml<T> (this object deserializedXml, string path) where T : class
 	{
 		using(var stream = new FileStream(path, FileMode.Create))
 		{
-			initSerializer();
-			ser.Serialize(stream, levelsXml);
+			var s = new XmlSerializer(typeof(T));
+			s.Serialize(stream, deserializedXml);
 		}
 	}
 
-
-	public static DeserializedLevels LoadLevels()
+	public static T LoadXml<T>(string textAssetName) where T : class
 	{
-		TextAsset xmlTextAsset = (TextAsset) Resources.Load ("Levels", typeof(TextAsset));
+		TextAsset xmlTextAsset = (TextAsset) Resources.Load (textAssetName, typeof(TextAsset));
 
 		using(var stream = new StringReader(xmlTextAsset.text))
 		{
-			initSerializer();
-			DeserializedLevels deserializedLevelXml = ser.Deserialize(stream) as DeserializedLevels;
-			return deserializedLevelXml;
+			var s = new XmlSerializer(typeof(T));
+			T deserializedXml = s.Deserialize(stream) as T;
+			return deserializedXml;
 		}
 	}
 
-	private static void initSerializer () {	if (ser == null) ser = new XmlSerializer(typeof(DeserializedLevels)); }
 }

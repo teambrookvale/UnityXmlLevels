@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Xml;
 
@@ -57,13 +57,11 @@ public class DeserializedLevelsSaver
 		DeserializedLevels levelsXmlToExport = new DeserializedLevels();
 		levelsXmlToExport.levels = new DeserializedLevels.Level[1];
 		levelsXmlToExport.levels[0] = levelXml;
-		XmlIO.Save("./Assets/Resources/" + xmlItemsToExportGOName + ".xml", levelsXmlToExport);
-		
-
+		XmlIO.SaveXml<DeserializedLevels>(levelsXmlToExport, "./Assets/Resources/" + xmlItemsToExportGOName + ".xml");
 	}
 
 	string toStringNullIfZero (float num) {	return num == 0 ? null : mathRound(num,2).ToString(); }
-	string toStringNullIfOne (float num) {	return num == 1 ? null : mathRound(num,2).ToString(); }
+	string toStringNullIfOne (float num)  {	return num == 1 ? null : mathRound(num,2).ToString(); }
 
 	
 	float mathRound (float round, int decimals)

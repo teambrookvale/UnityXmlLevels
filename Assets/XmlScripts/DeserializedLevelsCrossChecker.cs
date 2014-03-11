@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ public class DeserializedLevelsCrossChecker {
 		List<string> xmlPrefabList = new List<string>();
 
 		// Get prefabs from Levels.xml
-		DeserializedLevels deserializedLevels = XmlIO.LoadLevels();
+		DeserializedLevels deserializedLevels = XmlIO.LoadXml<DeserializedLevels>("Levels");
 		foreach (DeserializedLevels.Level level in deserializedLevels.levels)
 			foreach (DeserializedLevels.Item item in level.items)
 				if (!xmlPrefabList.Contains(item.prefab)) 
