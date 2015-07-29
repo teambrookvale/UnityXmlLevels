@@ -45,11 +45,9 @@ public class DeserializedLevelsLoader
 
     public void generateItems()
     {
-        init();
+        init();        
 
-        DeserializedLevels.Level currentLevel = getCurLevel();
-
-        createSceneItemsList(currentLevel);
+        createSceneItemsList();
 
         // Finally instantiate all items
         instantiateItems();
@@ -62,9 +60,8 @@ public class DeserializedLevelsLoader
         // if startlevel is in the XML i.e. <Developer StartLevel="3" /> then get level from there
         // otherwise start with level 1
         int startLevel = int.Parse(deserializedLevels.developer.startLevel);
-
-        DeserializedLevels.Level currentLevel = deserializedLevels.levels[startLevel - 1];
-        return currentLevel;
+       
+        return deserializedLevels.levels[startLevel - 1]; ;
     }
 
 
@@ -90,10 +87,10 @@ public class DeserializedLevelsLoader
         }
     }
 
-    private void createSceneItemsList(DeserializedLevels.Level currentLevel)
+    private void createSceneItemsList()
     {
         // <Item prefab="Chair" x="1" y="10" rot="90" />
-        foreach (DeserializedLevels.Item deserializedItem in currentLevel.items)
+        foreach (DeserializedLevels.Item deserializedItem in getCurLevel().items)
         {
             // caching prefabString i.e. "phone"
             string prefabString = deserializedItem.prefab;
