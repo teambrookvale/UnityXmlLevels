@@ -27,7 +27,7 @@ public class DeserializedLevelsSaver
 
         int n = 0;
         // count number of children skipping sub-items
-        foreach (Transform item in xmlItemsToExportGOchildren)
+        foreach (Transform item in xmlItemsToExportGOchildren)  //TODO replace two xmlItemsToExportGOchildren traversals with one
             if (item.parent == xmlItemsToExportGO.transform) n++;
 
         // the items array should have that many elements

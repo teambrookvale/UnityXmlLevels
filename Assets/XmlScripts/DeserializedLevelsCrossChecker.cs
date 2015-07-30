@@ -20,7 +20,7 @@ public class DeserializedLevelsCrossChecker {
 		DeserializedLevels deserializedLevels = XmlIO.LoadXml<DeserializedLevels>("Levels");
 		foreach (DeserializedLevels.Level level in deserializedLevels.levels)
 			foreach (DeserializedLevels.Item item in level.items)
-				if (!xmlPrefabList.Contains(item.prefab)) 
+				if (!xmlPrefabList.Contains(item.prefab))   //TODO Possible bottleneck
 					xmlPrefabList.Add(item.prefab);
 
 		// Get prefabs from the /Resources/Prefabs folder

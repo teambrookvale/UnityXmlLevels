@@ -19,6 +19,16 @@ public class DeserializedLevelsLoader
         public float rot;
         public float scale_x;
         public float scale_y;
+
+        public ItemStruct(GameObject prefabGO, DeserializedLevels.Item deserializedItem)
+        {
+            prefab = prefabGO;
+            x = toFloatZeroIfNull(deserializedItem.x);
+            y = toFloatZeroIfNull(deserializedItem.y);
+            rot = toFloatZeroIfNull(deserializedItem.rot);
+            scale_x = toFloatOneIfNull(deserializedItem.scale_x);
+            scale_y = toFloatOneIfNull(deserializedItem.scale_y);
+        }
     }
 
     // Cache prefabs in prefabDict
@@ -112,23 +122,17 @@ public class DeserializedLevelsLoader
                 prefabPool.Add(prefabString, prefabObject);
             }
 
-            ItemStruct item;
-            item.prefab = prefabPool[prefabString];
-            item.x = toFloatZeroIfNull(deserializedItem.x);
-            item.y = toFloatZeroIfNull(deserializedItem.y);
-            item.rot = toFloatZeroIfNull(deserializedItem.rot);
-            item.scale_x = toFloatOneIfNull(deserializedItem.scale_x);
-            item.scale_y = toFloatOneIfNull(deserializedItem.scale_y);
+            ItemStruct item = new ItemStruct(prefabPool[prefabString], deserializedItem);           
 
             sceneItemsList.Add(item);
         }
     }
 
-    // DONE, these are only helper functions below
-
+    
     // if no value then return zero or one, otherwise convert to float
-    float toFloatZeroIfNull(string value) { return value == null ? 0 : float.Parse(value); }
-    float toFloatOneIfNull(string value) { return value == null ? 1 : float.Parse(value); }
+    static float toFloatZeroIfNull(string value) { return value == null ? 0 : float.Parse(value); }
+    static float toFloatOneIfNull(string value) { return value == null ? 1 : float.Parse(value); }
+
 
     void setPos2D(GameObject g, Vector2 pos)
     {
