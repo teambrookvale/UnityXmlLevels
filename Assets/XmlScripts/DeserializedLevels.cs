@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using UnityEngine;
+using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
@@ -50,6 +51,18 @@ public class DeserializedLevels
 
         [XmlAttribute("scale_y")]
         public string scale_y;
+
+        public Item() { }
+
+        public Item(Transform item)
+        {
+            prefab = item.name;
+            x = DeserializedLevelsSaver.toStringNullIfZero(item.transform.position.x);
+            y = DeserializedLevelsSaver.toStringNullIfZero(item.transform.position.y);
+            rot = DeserializedLevelsSaver.toStringNullIfZero(item.localRotation.eulerAngles.x);
+            scale_x = DeserializedLevelsSaver.toStringNullIfOne(item.localScale.x);
+            scale_y = DeserializedLevelsSaver.toStringNullIfOne(item.localScale.y);
+        }
     }
 }
 

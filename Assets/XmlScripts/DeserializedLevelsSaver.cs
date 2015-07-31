@@ -46,14 +46,7 @@ public class DeserializedLevelsSaver
             // skip sub-items
             if (item.parent != xmlItemsToExportGO.transform) continue;
 
-            levelXml.items[i] = new DeserializedLevels.Item();
-
-            levelXml.items[i].prefab = item.name;
-            levelXml.items[i].x = toStringNullIfZero(item.transform.position.x);
-            levelXml.items[i].y = toStringNullIfZero(item.transform.position.y);
-            levelXml.items[i].rot = toStringNullIfZero(item.localRotation.eulerAngles.x);
-            levelXml.items[i].scale_x = toStringNullIfOne(item.localScale.x);
-            levelXml.items[i].scale_y = toStringNullIfOne(item.localScale.y);
+            levelXml.items[i] = new DeserializedLevels.Item(item);           
 
             // increase i for the next cycle
             i++;
@@ -67,11 +60,11 @@ public class DeserializedLevelsSaver
         XmlIO.SaveXml<DeserializedLevels>(levelsXmlToExport, "./Assets/Resources/" + xmlItemsToExportGOName + ".xml");
     }
 
-    string toStringNullIfZero(float num) { return num == 0 ? null : mathRound(num, 2).ToString(); }
-    string toStringNullIfOne(float num) { return num == 1 ? null : mathRound(num, 2).ToString(); }
+    public static string toStringNullIfZero(float num) { return num == 0 ? null : mathRound(num, 2).ToString(); }
+    public static string toStringNullIfOne(float num) { return num == 1 ? null : mathRound(num, 2).ToString(); }
 
 
-    float mathRound(float round, int decimals)
+    public static float mathRound(float round, int decimals)
     {
         return Mathf.Round(round * Mathf.Pow(10, decimals)) / Mathf.Pow(10, decimals);
     }
