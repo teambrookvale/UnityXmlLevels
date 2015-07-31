@@ -17,21 +17,10 @@ public class DeserializedLevelsCrossChecker {
 		List<string> xmlPrefabList = new List<string>();
 
 		// Get prefabs from Levels.xml
-		DeserializedLevels deserializedLevels = XmlIO.LoadXml<DeserializedLevels>("Levels");
-		foreach (DeserializedLevels.Level level in deserializedLevels.levels)
-			foreach (DeserializedLevels.Item item in level.items)
-				if (!xmlPrefabList.Contains(item.prefab))   //TODO Possible bottleneck
-					xmlPrefabList.Add(item.prefab);
+        getLevelPrefabs(xmlPrefabList);
 
 		// Get prefabs from the /Resources/Prefabs folder
-		// get all child items in the /Resources/Prefabs folder
-		DirectoryInfo dir = new DirectoryInfo("Assets/Resources/Prefabs");
-		FileInfo[] fileInfos = dir.GetFiles("*.prefab");
-		fileInfos.Select(f => f.FullName).ToArray();
-
-		// Add each prefab's file name to prefabList and truncate the .prefab extension from the end
-		foreach (FileInfo fileInfo in fileInfos) 
-			resPrefabList.Add (fileInfo.Name.Substring(0, fileInfo.Name.Length - ".prefab".Length));
+        getResPrefabs(resPrefabList);
 
 		// Cross checks
 		foreach (string prefab in xmlPrefabList.Except(resPrefabList).ToList())
@@ -42,4 +31,25 @@ public class DeserializedLevelsCrossChecker {
 
 		Debug.Log ("Cross Check Done");
 	}
+
+    private static void getResPrefabs(List<string> resPrefabList)
+    {
+        // get all child items in the /Resources/Prefabs folder
+        DirectoryInfo dir = new DirectoryInfo("Assets/Resources/Prefabs");
+        FileInfo[] fileInfos = dir.GetFiles("*.prefab");
+        fileInfos.Select(f => f.FullName).ToArray();
+
+        // Add each prefab's file name to prefabList and truncate the .prefab extension from the end
+        foreach (FileInfo fileInfo in fileInfos)
+            resPrefabList.Add(fileInfo.Name.Substring(0, fileInfo.Name.Length - ".prefab".Length));
+    }
+
+    private static void getLevelPrefabs(List<string> xmlPrefabList)
+    {
+        DeserializedLevels deserializedLevels = XmlIO.LoadXml<DeserializedLevels>("Levels");
+        foreach (DeserializedLevels.Level level in deserializedLevels.levels)
+            foreach (DeserializedLevels.Item item in level.items)
+                if (!xmlPrefabList.Contains(item.prefab))   //TODO Possible bottleneck
+                    xmlPrefabList.Add(item.prefab);
+    }
 }
