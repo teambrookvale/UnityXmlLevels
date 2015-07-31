@@ -55,7 +55,7 @@ public class DeserializedLevelsLoader
 
     public void generateItems()
     {
-        init();        
+        init();
 
         createSceneItemsList();
 
@@ -70,7 +70,7 @@ public class DeserializedLevelsLoader
         // if startlevel is in the XML i.e. <Developer StartLevel="3" /> then get level from there
         // otherwise start with level 1
         int startLevel = int.Parse(deserializedLevels.developer.startLevel);
-       
+
         return deserializedLevels.levels[startLevel - 1]; ;
     }
 
@@ -122,13 +122,13 @@ public class DeserializedLevelsLoader
                 prefabPool.Add(prefabString, prefabObject);
             }
 
-            ItemStruct item = new ItemStruct(prefabPool[prefabString], deserializedItem);           
+            ItemStruct item = new ItemStruct(prefabPool[prefabString], deserializedItem);
 
             sceneItemsList.Add(item);
         }
     }
 
-    
+
     // if no value then return zero or one, otherwise convert to float
     static float toFloatZeroIfNull(string value) { return value == null ? 0 : float.Parse(value); }
     static float toFloatOneIfNull(string value) { return value == null ? 1 : float.Parse(value); }

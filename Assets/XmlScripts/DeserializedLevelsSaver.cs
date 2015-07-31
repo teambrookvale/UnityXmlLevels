@@ -13,7 +13,8 @@ public class DeserializedLevelsSaver
         // Create XmlItemsToExport or find existing
         if (GameObject.Find(xmlItemsToExportGOName) == null)
             xmlItemsToExportGO = new GameObject(xmlItemsToExportGOName);
-        else{
+        else
+        {
             xmlItemsToExportGO = GameObject.Find(xmlItemsToExportGOName);
         }
 

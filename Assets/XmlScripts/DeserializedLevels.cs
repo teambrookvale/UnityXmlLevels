@@ -6,50 +6,50 @@ using System.IO;
 [XmlRoot("Levels")]
 public class DeserializedLevels
 {
-	[XmlElement ("Developer")]
-	public Developer developer;
-	public class Developer
-	{
-		[XmlAttribute ("StartLevel")]
-		public string startLevel;
-	}
+    [XmlElement("Developer")]
+    public Developer developer;
+    public class Developer
+    {
+        [XmlAttribute("StartLevel")]
+        public string startLevel;
+    }
 
-	[XmlElement ("Level")]
-	public Level[] levels;
-	public class Level
-	{
-		[XmlAttribute ("playerx")]
-		public string playerx;
-		
-		[XmlAttribute ("playery")]
-		public string playery;
-		
-		[XmlAttribute ("playerrot")]
-		public string playerrot;
-		
-		[XmlElement("Item")]
-		public Item[] items;
-	}
+    [XmlElement("Level")]
+    public Level[] levels;
+    public class Level
+    {
+        [XmlAttribute("playerx")]
+        public string playerx;
 
-	public class Item
-	{
-		[XmlAttribute ("prefab")]
-		public string prefab;
-		
-		[XmlAttribute ("x")]
-		public string x;
-		
-		[XmlAttribute ("y")]
-		public string y;
-		
-		[XmlAttribute ("rot")]
-		public string rot;
-		
-		[XmlAttribute ("scale_x")]
-		public string scale_x;
-		
-		[XmlAttribute ("scale_y")]
-		public string scale_y;
-	}
+        [XmlAttribute("playery")]
+        public string playery;
+
+        [XmlAttribute("playerrot")]
+        public string playerrot;
+
+        [XmlElement("Item")]
+        public Item[] items;
+    }
+
+    public class Item
+    {
+        [XmlAttribute("prefab")]
+        public string prefab;
+
+        [XmlAttribute("x")]
+        public string x;
+
+        [XmlAttribute("y")]
+        public string y;
+
+        [XmlAttribute("rot")]
+        public string rot;
+
+        [XmlAttribute("scale_x")]
+        public string scale_x;
+
+        [XmlAttribute("scale_y")]
+        public string scale_y;
+    }
 }
 

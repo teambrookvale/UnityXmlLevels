@@ -6,31 +6,32 @@ using System.IO;
 using System.Xml;
 using System.Linq;
 
-public class DeserializedLevelsCrossChecker {
+public class DeserializedLevelsCrossChecker
+{
 
 
-	// cross check /Resources/Prefabs and Levels.xml if there are any item prefabs that exist only in one but not the other
-	public void crossCheck ()
-	{
-		// create a list of /Resources/Prefabs for resources and Levels.Xml
-		List<string> resPrefabList = new List<string>();
-		List<string> xmlPrefabList = new List<string>();
+    // cross check /Resources/Prefabs and Levels.xml if there are any item prefabs that exist only in one but not the other
+    public void crossCheck()
+    {
+        // create a list of /Resources/Prefabs for resources and Levels.Xml
+        List<string> resPrefabList = new List<string>();
+        List<string> xmlPrefabList = new List<string>();
 
-		// Get prefabs from Levels.xml
+        // Get prefabs from Levels.xml
         getLevelPrefabs(xmlPrefabList);
 
-		// Get prefabs from the /Resources/Prefabs folder
+        // Get prefabs from the /Resources/Prefabs folder
         getResPrefabs(resPrefabList);
 
-		// Cross checks
-		foreach (string prefab in xmlPrefabList.Except(resPrefabList).ToList())
-			Debug.LogError (prefab + " is missing in the /Resorces/Prefabs folder but used in Levels.xml");
+        // Cross checks
+        foreach (string prefab in xmlPrefabList.Except(resPrefabList).ToList())
+            Debug.LogError(prefab + " is missing in the /Resorces/Prefabs folder but used in Levels.xml");
 
-		foreach (string prefab in resPrefabList.Except(xmlPrefabList).ToList())
-			Debug.Log      (prefab + " exists in the /Resorces/Prefabs folder but not used in Levels.xml");
+        foreach (string prefab in resPrefabList.Except(xmlPrefabList).ToList())
+            Debug.Log(prefab + " exists in the /Resorces/Prefabs folder but not used in Levels.xml");
 
-		Debug.Log ("Cross Check Done");
-	}
+        Debug.Log("Cross Check Done");
+    }
 
     private static void getResPrefabs(List<string> resPrefabList)
     {
