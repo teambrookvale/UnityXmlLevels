@@ -23,9 +23,12 @@ public class DeserializedLevelsSaver
 
         Transform[] xmlItemsToExportGOchildren = xmlItemsToExportGO.GetComponentsInChildren<Transform>();
 
-        // Check if any children exist
-        if (xmlItemsToExportGOchildren.Length == 0)
+        // Check if there isn't any Transform components except parent's
+        if (xmlItemsToExportGOchildren.Length == 1)
+        {
             Debug.LogError("Add the prefabs to " + xmlItemsToExportGOName);
+            return;
+        }
 
         DeserializedLevels.Level levelXml = new DeserializedLevels.Level();
 
