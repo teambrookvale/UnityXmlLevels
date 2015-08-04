@@ -14,7 +14,8 @@ public class DeserializedLevelsSaver
         if (GameObject.Find(xmlItemsToExportGOName) == null)
         {
             xmlItemsToExportGO = new GameObject(xmlItemsToExportGOName);
-            return;                             //we have nothing to save so skip execution
+            //we have nothing to save so skip execution
+            return;
         }
         else
         {
@@ -33,16 +34,16 @@ public class DeserializedLevelsSaver
         //create list of items
         List<DeserializedLevels.Item> itemList = new List<DeserializedLevels.Item>();
 
-        foreach (Transform item in xmlItemsToExportGOchildren)  
+        foreach (Transform item in xmlItemsToExportGOchildren)
         {
             if (item.parent == xmlItemsToExportGO.transform)
             {
                 itemList.Add(new DeserializedLevels.Item(item));
             }
         }
-        
+
         //copy list of items to the raw array
-        DeserializedLevels.Level levelXml = new DeserializedLevels.Level();        
+        DeserializedLevels.Level levelXml = new DeserializedLevels.Level();
         levelXml.items = new DeserializedLevels.Item[itemList.Count];
         itemList.CopyTo(levelXml.items);
 
@@ -50,12 +51,20 @@ public class DeserializedLevelsSaver
         DeserializedLevels levelsXmlToExport = new DeserializedLevels();
         levelsXmlToExport.levels = new DeserializedLevels.Level[1];
         levelsXmlToExport.levels[0] = levelXml;
-        XmlIO.SaveXml<DeserializedLevels>(levelsXmlToExport, "./Assets/Resources/" + xmlItemsToExportGOName + ".xml");
+
+        string outputFilePath = "./Assets/Resources/" + xmlItemsToExportGOName + ".xml";
+        XmlIO.SaveXml<DeserializedLevels>(levelsXmlToExport, outputFilePath);
     }
 
-    public static string toStringNullIfZero(float num) { return num == 0 ? null : mathRound(num, 2).ToString(); }
-    public static string toStringNullIfOne(float num) { return num == 1 ? null : mathRound(num, 2).ToString(); }
+    public static string toStringNullIfZero(float num)
+    {
+        return num == 0 ? null : mathRound(num, 2).ToString();
+    }
 
+    public static string toStringNullIfOne(float num)
+    {
+        return num == 1 ? null : mathRound(num, 2).ToString();
+    }
 
     public static float mathRound(float round, int decimals)
     {
