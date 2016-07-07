@@ -20,9 +20,8 @@ public static class XmlIO
 
 		using(var stream = new StringReader(xmlTextAsset.text))
 		{
-			var s = new XmlSerializer(typeof(T));
-			T deserializedXml = s.Deserialize(stream) as T;
-			return deserializedXml;
+			var s = new XmlSerializer(typeof(T));			 
+			return s.Deserialize(stream) as T;
 		}
 	}
 

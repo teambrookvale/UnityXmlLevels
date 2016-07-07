@@ -1,71 +1,73 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using System.Xml;
 
 public class DeserializedLevelsSaver
 {
-	public const string xmlItemsToExportGOName = "XmlItemsToExport";
+    public const string xmlItemsToExportGOName = "XmlItemsToExport";
 
-	public void saveExportItems ()
-	{
-		
-		// Create XmlItemsToExport if does not exist yet
-		if (GameObject.Find (xmlItemsToExportGOName) == null)
-			new GameObject(xmlItemsToExportGOName);
-		
-		GameObject xmlItemsToExportGO = GameObject.Find (xmlItemsToExportGOName);
-		var xmlItemsToExportGOchildren = xmlItemsToExportGO.GetComponentsInChildren<Transform>();
-		
-		// Check if any children exist
-		if (xmlItemsToExportGOchildren.Length == 0)
-			Debug.LogError ("Add the prefabs to " + xmlItemsToExportGOName);
-		
-		DeserializedLevels.Level levelXml = new DeserializedLevels.Level();
+    public void saveExportItems()
+    {
+        GameObject xmlItemsToExportGO;
 
-		int n = 0;
-		// count number of children skipping sub-items
-		foreach (Transform item in xmlItemsToExportGOchildren)
-			if (item.parent == xmlItemsToExportGO.transform) n++;
+        // Create XmlItemsToExport or find existing
+        if (GameObject.Find(xmlItemsToExportGOName) == null)
+        {
+            xmlItemsToExportGO = new GameObject(xmlItemsToExportGOName);
+            //we have nothing to save so skip execution
+            return;
+        }
+        else
+        {
+            xmlItemsToExportGO = GameObject.Find(xmlItemsToExportGOName);
+        }
 
-		// the items array should have that many elements
-		levelXml.items = new DeserializedLevels.Item[n];
+        Transform[] xmlItemsToExportGOchildren = xmlItemsToExportGO.GetComponentsInChildren<Transform>();
 
-		// use i for counting items, i would be equal (one more to be precise) to n at the end of the cycle
-		int i = 0;
+        // Check if there isn't any Transform components except parent's
+        if (xmlItemsToExportGOchildren.Length == 1)
+        {
+            Debug.LogError("Add the prefabs to " + xmlItemsToExportGOName);
+            return;
+        }
 
-		// cycle through the children again and add them to items
-		foreach (Transform item in xmlItemsToExportGOchildren)
-		{
-			// skip sub-items
-			if (item.parent != xmlItemsToExportGO.transform) continue;
+        //create list of items
+        List<DeserializedLevels.Item> itemList = new List<DeserializedLevels.Item>();
 
-			levelXml.items[i] = new DeserializedLevels.Item();
+        foreach (Transform item in xmlItemsToExportGOchildren)
+        {
+            if (item.parent == xmlItemsToExportGO.transform)
+            {
+                itemList.Add(new DeserializedLevels.Item(item));
+            }
+        }
 
-			levelXml.items[i].prefab = 	item.name;
-			levelXml.items[i].x = 		toStringNullIfZero (item.transform.position.x);
-			levelXml.items[i].y = 		toStringNullIfZero (item.transform.position.y);
-			levelXml.items[i].rot = 	toStringNullIfZero (item.localRotation.eulerAngles.x);
-			levelXml.items[i].scale_x = toStringNullIfOne  (item.localScale.x);
-			levelXml.items[i].scale_y = toStringNullIfOne  (item.localScale.y);
+        //copy list of items to the raw array
+        DeserializedLevels.Level levelXml = new DeserializedLevels.Level();
+        levelXml.items = new DeserializedLevels.Item[itemList.Count];
+        itemList.CopyTo(levelXml.items);
 
-			// increase i for the next cycle
-			i++;
-		}
+        // Export just one level
+        DeserializedLevels levelsXmlToExport = new DeserializedLevels();
+        levelsXmlToExport.levels = new DeserializedLevels.Level[1];
+        levelsXmlToExport.levels[0] = levelXml;
 
+        string outputFilePath = "./Assets/Resources/" + xmlItemsToExportGOName + ".xml";
+        XmlIO.SaveXml<DeserializedLevels>(levelsXmlToExport, outputFilePath);
+    }
 
-		// Export just one level
-		DeserializedLevels levelsXmlToExport = new DeserializedLevels();
-		levelsXmlToExport.levels = new DeserializedLevels.Level[1];
-		levelsXmlToExport.levels[0] = levelXml;
-		XmlIO.SaveXml<DeserializedLevels>(levelsXmlToExport, "./Assets/Resources/" + xmlItemsToExportGOName + ".xml");
-	}
+    public static string toStringNullIfZero(float num)
+    {
+        return num == 0 ? null : mathRound(num, 2).ToString();
+    }
 
-	string toStringNullIfZero (float num) {	return num == 0 ? null : mathRound(num,2).ToString(); }
-	string toStringNullIfOne (float num)  {	return num == 1 ? null : mathRound(num,2).ToString(); }
+    public static string toStringNullIfOne(float num)
+    {
+        return num == 1 ? null : mathRound(num, 2).ToString();
+    }
 
-	
-	float mathRound (float round, int decimals)
-	{
-		return Mathf.Round(round * Mathf.Pow(10,decimals)) / Mathf.Pow(10,decimals);
-	}
+    public static float mathRound(float round, int decimals)
+    {
+        return Mathf.Round(round * Mathf.Pow(10, decimals)) / Mathf.Pow(10, decimals);
+    }
 }
