@@ -16,4 +16,4 @@ Load and save levels in Unity3D using XML files, that you can also edit manually
 #### Tutorial
 Navigate to Team Brookvale website for the full description and tutorial:
 
-[http://www.teambrookvale.com/tutorial-xml-level-unity](http://www.teambrookvale.com/tutorial-xml-level-unity "Team Brookvale - Tutorial - Roboust XML level building in Unity")
+[https://teambrookvale.com.au/articles/tutorial-xml-level-unity](https://teambrookvale.com.au/articles/tutorial-xml-level-unity "Team Brookvale - Tutorial - Roboust XML level building in Unity")
